@@ -1,16 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TellDontAskKata.Main.UseCase;
 
 namespace TellDontAskKata.Main.Domain
 {
     public class Order
     {
-        public decimal Total { get; set; }
-        public string Currency { get; init; }
-        public IList<OrderItem> Items { get; init; }
-        public decimal Tax { get; set; }
+        public decimal Total => Items.Sum(x => x.TaxedAmount);
+        public string Currency { get; private init; }
+        public IList<OrderItem> Items { get; private init; }
+        public decimal Tax => Items.Sum(x => x.Tax);
         public OrderStatus Status { get; set; }
         public int Id { get; init; }
+
+        public static Order CreateEmpty()
+        {
+            return new Order
+            {
+                Status = OrderStatus.Created,
+                Items = new List<OrderItem>(),
+                Currency = "EUR"
+            };
+        }
         
         public void ProcessApprovalRequest(OrderApprovalRequest request)
         {
