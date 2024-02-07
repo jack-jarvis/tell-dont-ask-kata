@@ -11,13 +11,5 @@ namespace TellDontAskKata.Main.Domain
         public decimal UnitaryTax => decimal.Round(Price / 100m * Category.TaxPercentage, 2, System.MidpointRounding.ToPositiveInfinity);
 
         public decimal UnitaryTaxedAmount => Price + UnitaryTax;
-        
-        public void AddTo(Order order, int quantity)
-        {
-            var orderItem = OrderItem.ProductOrder(this, quantity);
-            order.Items.Add(orderItem);
-        }
-        
-        
     }
 }

@@ -29,7 +29,7 @@ namespace TellDontAskKata.Main.UseCase
                     throw new UnknownProductException();
                 }
 
-                product.AddTo(order, itemRequest.Quantity);
+                order.AddItem(product, itemRequest.Quantity);
             }
 
             _orderRepository.Save(order);

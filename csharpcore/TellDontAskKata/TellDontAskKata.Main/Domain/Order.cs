@@ -42,5 +42,11 @@ namespace TellDontAskKata.Main.Domain
 
             Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
         }
+
+        public void AddItem(Product product, int quantity)
+        {
+            var orderItem = new OrderItem(product, quantity);
+            Items.Add(orderItem);
+        }
     }
 }
